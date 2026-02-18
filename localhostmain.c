@@ -9,14 +9,14 @@ int main() {
 	WSADATA wsa;
 	printf("windows ag kutuphanesini baslatmayi deniyor bekleyiniz...\n");
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
-		printf("baslatýlýrken bir hata olustu hata kodu : %d\n", WSAGetLastError());
+		printf("baslatÄ±lÄ±rken bir hata olustu hata kodu : %d\n", WSAGetLastError());
 		return 1;
 	}
 
 	printf("BASARILI\n");
 
 
-	//wsastatrtup baþarýlý olduktan sonra
+	
 	SOCKET SunucuSoketi;
 	SunucuSoketi = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -24,7 +24,7 @@ int main() {
 
 	if (SunucuSoketi == INVALID_SOCKET)
 	{
-		printf("soket oluþturulamadý hata kodu :%d", WSAGetLastError());
+		printf("soket oluÅŸturulamadÄ± hata kodu :%d", WSAGetLastError());
 		WSACleanup();
 		return 1;
 	}
@@ -34,7 +34,7 @@ int main() {
 
 
 
-	//sunucu adresi ve boþ portlarý kullanma
+	//sunucu adresi ve boÅŸ portlarÄ± kullanma
 	struct sockaddr_in sunucuAdresi;
 	sunucuAdresi.sin_family = AF_INET;
 	sunucuAdresi.sin_addr.s_addr = INADDR_ANY;
@@ -47,7 +47,7 @@ int main() {
 		return 1;
 	}
 	printf("\nbasarili");
-	//clientler için bekleme sirasi
+	
 
 	if (listen(SunucuSoketi, 3) == SOCKET_ERROR) {
 		printf("HATA: Dinleme moduna gecilemedi! Kod: %d\n", WSAGetLastError());
@@ -55,7 +55,7 @@ int main() {
 		WSACleanup();
 		return 1;
 	}
-	printf("basarýlý sunucu 1453 portunda");
+	printf("basarili sunucu 1453 portunda");
 
 
 	printf("\n--- ADIM 5: Baglanti Kabul Ediliyor (Accept) ---\n");
@@ -64,7 +64,7 @@ int main() {
 	SOCKET Gelensoketi;
 	Gelensoketi = accept(SunucuSoketi, NULL, NULL);
 	if (Gelensoketi == INVALID_SOCKET) {
-		printf("HATA: Musteri iceri alinamadi! Kod: %d\n", WSAGetLastError());			closesocket(SunucuSoketi);
+		printf("HATA:iceri alinamadi! Kod: %d\n", WSAGetLastError());			closesocket(SunucuSoketi);
 		WSACleanup();
 		return 1;
 	}
@@ -81,7 +81,7 @@ int main() {
 		"Content-Type: text/plain; charset=utf-8\r\n"
 		"Connection: close\r\n"
 		"\r\n"
-		"bunu yazan tosun okuyana kosun.";
+		"calisiyor.";
 
 	send(Gelensoketi, mesaj, (int)strlen(mesaj), 0);
 	printf("Cevap gonderildi.\n");
@@ -100,3 +100,4 @@ int main() {
 	return 0;
 
 }
+
